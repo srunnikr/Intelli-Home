@@ -57,3 +57,18 @@ body {
 	height: 200px;
 	text-align: left;
 }
+
+
+/* ABOUT PAGE */
+
+.aboutDescription {
+	margin-top: 50px;
+	font-family: 'Roboto','Quicksand','Open Sans', sans-serif;
+	font-size: 20px;
+}
+
+.names {
+	margin-top: 50px;
+	font-family: 'Roboto','Quicksand','Open Sans', sans-serif;
+	font-size: 20px;
+}
