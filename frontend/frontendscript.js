@@ -10,7 +10,30 @@ $(document).ready( function () {
 
 	// Establish connection via socket io
 	var socket = io.connect('127.0.0.1');
-}) ;
+
+	socket.on('tempUpdate', function(data) {
+		var tempValue = data.value;
+		updateTemperature(tempValue);
+	});
+
+	socket.on('humUpdate', function(data) {
+		var humValue = data.value;
+		updateHumidity(humValue);
+	});
+
+	socket.on('lampUpdate', function(data) {
+		var lampValue = data.value;
+		updateLampState(lampValue);
+	});
+
+	socket.on('intrusionUpdate', function(data) {
+		var intrusionValue = data.value;
+		updateIntrusionState(intrusionValue);
+	});
+
+});
+
+
 
 function updateTemperature(newValue) {
 	document.getElementById("temperatureValue").innerHTML = newValue;
