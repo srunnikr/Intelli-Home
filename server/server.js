@@ -4,6 +4,8 @@ var app = express();
 var server = require('http').createServer(app);  
 var io = require('socket.io')(server);
 
+var temperature = 0;
+
 // Static directory for html/css/js
 app.use(express.static(__dirname + '/public/'));  
 
@@ -21,17 +23,24 @@ app.get('help.html', function(req, res, next) {
 });
 
 io.on('connection', function(client) {  
-	console.log('Client connected...');
+  console.log('Client connected...');
 
-	client.emit('welcomeUpdate');
+  client.emit('welcomeUpdate');
 
-	client.on('join', function(data) {
-		console.log(data);
-	});
-	
-	client.on('timer', function() {
-		console.log("Received timer event");
-	});
+  client.on('join', function(data) {
+    console.log(data);
+  });
+
+  client.on('timer', function() {
+    console.log("Received timer event");
+  });
+
+  // Sensor updates
+  client.on('tempReading', function(data) {
+    temperature = data;
+    client.broadcast.emit('tempUpdate', temperature);
+    console.log("temperature update sent to frontend");
+  });
 
 });
 

@@ -12,9 +12,9 @@ $(document).ready( function () {
 	var socket = io.connect('http://localhost:3000');
 	
 	// Get sensor updates periodically
-	setInterval(function() {  
+	/*setInterval(function() {  
 	  	socket.emit('timer');
-	}, 2000);
+	}, 2000);*/
 	
 	socket.on('connect', function(data) {
 	        socket.emit('join', 'Hello World from client');
