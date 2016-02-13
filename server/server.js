@@ -18,7 +18,7 @@ app.get('/about.html', function(req, res, next) {
 	res.sendFile(__dirname + '/public/about.html');
 });
 
-app.get('help.html', function(req, res, next) {
+app.get('/help.html', function(req, res, next) {
 	res.sendFile(__dirname + '/public/help.html');
 });
 

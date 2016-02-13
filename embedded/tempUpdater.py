@@ -27,7 +27,7 @@ def main():
         # round it to two decimals
         currTemp = float("{0:.2f}".format(currTemp))
 	# Send it to server
-	with SocketIO('192.168.0.104', 3000, LoggingNamespace) as socketIO:
+	with SocketIO('192.168.1.2', 3000, LoggingNamespace) as socketIO:
 		socketIO.emit('tempReading', currTemp)
 
 if __name__ == '__main__':
