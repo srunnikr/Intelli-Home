@@ -1,10 +1,10 @@
-#import spidev
+import spidev
 import time
 import os
 from socketIO_client import SocketIO, LoggingNamespace
 
-temp = 0
-print temp
+spi = spidev.SpiDev()
+spi.open(0,1)
 
 def getTempReading(channel):
     # We read the sensor voltage through ADC
@@ -20,16 +20,15 @@ def getTempReading(channel):
 
     tempinC = ((analogVoltage*1000) - 500) / 10
     print "Temperature in C : ",tempinC
+    return tempinC
 
 def main():
-	# currTemp = getTempReading(0)
+	currTemp = getTempReading(0)
+        # round it to two decimals
+        currTemp = float("{0:.2f}".format(currTemp))
 	# Send it to server
-	global temp
-	with SocketIO('localhost', 3000, LoggingNamespace) as socketIO:
-		socketIO.emit('tempReading', temp)
-	temp += 1
-	if temp > 30:
-		temp = 0
+	with SocketIO('192.168.0.104', 3000, LoggingNamespace) as socketIO:
+		socketIO.emit('tempReading', currTemp)
 
 if __name__ == '__main__':
 	while True:
