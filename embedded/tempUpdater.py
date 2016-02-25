@@ -23,7 +23,7 @@ def getTempReading(channel):
     return tempinC
 
 def getDoorStatus(channel):
-    # We read the sensor voltage through ADC
+    # We read doorPin voltage through ADC
     adcValue = spi.xfer2([1, (8+channel) << 4, 0])
     # spidev writes back the data onto same buffer used to send data
     # We have 10-bit resoultion, so 2 bits from first byte and then 8 bits from last
@@ -31,6 +31,7 @@ def getDoorStatus(channel):
     print "Door Adc reading : ",reading
 
     status = ""
+    # If voltage is high, nothing is in proximity / door closed else open
     if(reading < 100):
         print "Door OPENED"
         status = "OPEN"
