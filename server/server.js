@@ -64,14 +64,14 @@ function writeLogFile(type,data) {
   var current_sec = d.getSeconds();
   var date = d.getUTCDate().toString() + "-" + d.getUTCMonth().toString() + "-" + d.getUTCFullYear().toString();
   var text = "";
-  text += date+"-";
+  text += date+":";
   text += current_hour.toString()+":"+current_min.toString()+":"+current_sec.toString();
   if(type == "temp") {
-    text += ":T:";
+    text += "::T:";
   } else if(type == "hum") {
-    text += ":H:";
+    text += "::H:";
   } else if(type == "door") {
-    text += ":D:";
+    text += "::D:";
   }
   text += data;
   text += "\n"
