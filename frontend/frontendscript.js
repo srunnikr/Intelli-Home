@@ -1,6 +1,8 @@
 var d = new Date();
-var readings = [12.3, 14.5, 22.3, 11.4, 14.6]
-var labels = ['12PM', '1PM', '2PM', '3PM', '4PM']
+var readings = []
+var labels = []
+
+var canvas = document.getElementById('myChart').getContext('2d');
 
 $(document).ready( function () {
 	// Set the status message to test javascript functionality
@@ -39,37 +41,64 @@ $(document).ready( function () {
 });
 
 function drawGraph(data, labels) {
-	var buyerData = {
-			labels : labels,
-			datasets : [
-				{
-					fillColor : "rgba(172,194,132,0.4)",
-					strokeColor : "#ACC26D",
-					pointColor : "#fff",
-					pointStrokeColor : "#9DB86D",
-					data : data
-				}
-			]
-		}
-	var buyers = document.getElementById('myChart').getContext('2d');
-    new Chart(buyers).Line(buyerData);
+	var chartData = {
+		labels : labels,
+		datasets : [
+			{
+				fillColor : "rgba(172,194,132,0.4)",
+				strokeColor : "#ACC26D",
+				pointColor : "#fff",
+				pointStrokeColor : "#9DB86D",
+				data : data
+			}
+		]
+	}
+	chart = new Chart(canvas).Line(chartData);
 }
 
 function updateTemperature(newValue) {
 	document.getElementById("temperatureValue").innerHTML = newValue;
 
 	// Update the temperature data base for the chart
-	readings.push(newValue);
+
 	var current_hour = d.getHours();
+	var current_min = d.getMinutes();
+	
+	// CHeck if we have 100 elements in the array, if so remove the last one
+	if(readings.length >= 20) {
+		// Remove the last element
+		readings.shift();
+		readings.push(newValue);
+	} else {
+		// Ift here are fewer than 100 elements
+		readings.push(newValue);
+	}
+
+	// Prepare the label to display
 	var label = "";
 	label += current_hour.toString();
 	if(current_hour < 12) {
+		label+=":";
+		label+=current_min.toString();
 		label+="AM";
 	} else {
+		label+=":";
+		label+=current_min.toString();
 		label += "PM";
 	}
-	labels.push(label);
+
+	// Similar to readings check if we have 100 elements at present
+	if(labels.length >= 20) {
+		// Remove the last element (Here the first item in the array)
+		labels.shift();
+		labels.push(label);
+	} else {
+		labels.push(label);
+	}
+	
+	// Update the graph
 	drawGraph(readings, labels);
+
 }
 
 function updateHumidity(newValue) {
