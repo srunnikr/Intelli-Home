@@ -1,4 +1,5 @@
 import sys
+from threading import Thread
 import pygal
 
 time = ["12AM", "1AM", "2AM", "3AM", "4AM", "5AM", "6AM", "7AM", "8AM", "9AM", "10AM", "11AM",
@@ -73,8 +74,16 @@ def processData(file_name):
 		elif "D" in line:
 			doorData.append(line.strip('\n'))
 	printMessage("Segregrated data")
-	processTemperature(tempData)
-	processDoorstatus(doorData)
+	printMessage("Starting threads")
+	threadTemp = Thread(target=processTemperature, args = (tempData,))
+	threadDoor = Thread(target=processDoorstatus, args = (doorData,))
+
+	threadTemp.start()
+	threadDoor.start()
+
+	threadTemp.join()
+	threadDoor.join()
+	printMessage("Threads completed")
 
 def printMessage(msg):
 	print "[Intelli-Home] > ",msg
