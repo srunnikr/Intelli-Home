@@ -44,6 +44,14 @@ io.on('connection', function(client) {
     console.log("temperature update sent to frontend");
   });
 
+  client.on('doorReading', function(data) {
+    doorStatus = data;
+    console.log("Door status : ");
+    console.log(data);
+    client.broadcast.emit('doorUpdate', data);
+    console.log("door update sent to frontend");
+  });
+
 });
 
 server.listen(5000, '192.168.1.2');  
