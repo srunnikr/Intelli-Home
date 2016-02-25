@@ -9,7 +9,7 @@ $(document).ready( function () {
 	updateIntrusionState("NOT GOOD");
 
 	// Establish connection via socket io
-	var socket = io.connect('http://localhost:3000');
+	var socket = io.connect('http://192.168.1.2:3000');
 	
 	// Get sensor updates periodically
 	/*setInterval(function() {  
