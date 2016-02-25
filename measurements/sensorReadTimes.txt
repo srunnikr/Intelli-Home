@@ -1,0 +1,11 @@
+ADC Response times:
+
+The following readings are taken using Spidev library for python to interface 
+MCP3008 ADC chip
+
+Time :  0.000469923019409
+Time :  0.000268936157227
+Time :  0.000777006149292
+Time :  0.000442028045654
+Time :  0.000266075134277
+Time :  0.00174903869629

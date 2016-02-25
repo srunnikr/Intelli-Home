@@ -18,7 +18,7 @@ app.get('/about.html', function(req, res, next) {
 	res.sendFile(__dirname + '/public/about.html');
 });
 
-app.get('help.html', function(req, res, next) {
+app.get('/help.html', function(req, res, next) {
 	res.sendFile(__dirname + '/public/help.html');
 });
 
@@ -42,6 +42,14 @@ io.on('connection', function(client) {
     console.log(temperature);
     client.broadcast.emit('tempUpdate', temperature);
     console.log("temperature update sent to frontend");
+  });
+
+  client.on('doorReading', function(data) {
+    doorStatus = data;
+    console.log("Door status : ");
+    console.log(data);
+    client.broadcast.emit('doorUpdate', data);
+    console.log("door update sent to frontend");
   });
 
 });
