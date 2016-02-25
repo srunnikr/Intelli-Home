@@ -61,7 +61,6 @@ def processDoorstatus(data):
 	chart.x_labels = time
 	chart.add('Door openings (#)', doorstatusData)
 	chart.render_to_file('doorstatus.svg')
-	#chart.render_to_png('doorstatus.png')
 
 def processData(file_name):
 	tempData = []
