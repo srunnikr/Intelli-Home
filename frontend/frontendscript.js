@@ -1,4 +1,3 @@
-var d = new Date();
 var readings = []
 var labels = []
 
@@ -9,18 +8,18 @@ $(document).ready( function () {
 	console.log("javascript on");
 
 	// Set default temperature and humidity values
-	updateTemperature(23);
+	updateTemperature(0);
 	updateHumidity(90);
 	updateLampState("ON");
 	updateIntrusionState("NOT GOOD");
 	drawGraph(readings, labels);
 
 	// Establish connection via socket io
-	var socket = io.connect('127.0.0.1');
+	console.log("Trying to establish connection");
+	var socket = io.connect('http://192.168.1.2:5000');
 
 	socket.on('tempUpdate', function(data) {
-		var tempValue = data.value;
-		updateTemperature(tempValue);
+		updateTemperature(data);
 	});
 
 	socket.on('humUpdate', function(data) {
@@ -53,16 +52,32 @@ function drawGraph(data, labels) {
 			}
 		]
 	}
+	Chart.defaults.global.responsive = true;
+	Chart.defaults.global.animation = false;
+	Chart.defaults.global.scaleOverride = true;
+
+    // ** Required if scaleOverride is true **
+    // Number - The number of steps in a hard coded scale
+    Chart.defaults.global.scaleSteps = 15;
+    // Number - The value jump in the hard coded scale
+    Chart.defaults.global.scaleStepWidth = 2;
+    // Number - The scale starting value
+    Chart.defaults.global.scaleStartValue = 0;
+
 	chart = new Chart(canvas).Line(chartData);
 }
 
 function updateTemperature(newValue) {
+	console.log("New temp value");
+	console.log(newValue);
+
 	document.getElementById("temperatureValue").innerHTML = newValue;
 
 	// Update the temperature data base for the chart
-
+	var d = new Date();
 	var current_hour = d.getHours();
 	var current_min = d.getMinutes();
+	var current_sec = d.getSeconds();
 	
 	// CHeck if we have 100 elements in the array, if so remove the last one
 	if(readings.length >= 20) {
@@ -80,10 +95,14 @@ function updateTemperature(newValue) {
 	if(current_hour < 12) {
 		label+=":";
 		label+=current_min.toString();
+		label+=":";
+		label+=current_sec.toString();
 		label+="AM";
 	} else {
 		label+=":";
 		label+=current_min.toString();
+		label+=":";
+		label+=current_sec.toString();
 		label += "PM";
 	}
 

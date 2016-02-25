@@ -1,4 +1,4 @@
-// app.js
+  // app.js
 var express = require('express');  
 var app = express();  
 var server = require('http').createServer(app);  
@@ -38,10 +38,12 @@ io.on('connection', function(client) {
   // Sensor updates
   client.on('tempReading', function(data) {
     temperature = data;
+    console.log(data);
+    console.log(temperature);
     client.broadcast.emit('tempUpdate', temperature);
     console.log("temperature update sent to frontend");
   });
 
 });
 
-server.listen(3000, '192.168.1.2');  
+server.listen(5000, '192.168.1.2');  
