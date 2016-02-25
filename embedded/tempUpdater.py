@@ -34,10 +34,10 @@ def getDoorStatus(channel):
     # If voltage is high, nothing is in proximity / door closed else open
     if(reading < 100):
         print "Door OPENED"
-        status = "OPEN"
+        status = "OPENED"
     else:
         print "Door CLOSED"
-        status = "CLOSE"
+        status = "CLOSED"
     return status
     
 
