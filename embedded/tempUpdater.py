@@ -22,13 +22,36 @@ def getTempReading(channel):
     print "Temperature in C : ",tempinC
     return tempinC
 
+def getDoorStatus(channel):
+    # We read doorPin voltage through ADC
+    adcValue = spi.xfer2([1, (8+channel) << 4, 0])
+    # spidev writes back the data onto same buffer used to send data
+    # We have 10-bit resoultion, so 2 bits from first byte and then 8 bits from last
+    reading = ((adcValue[1]&3) << 8) + adcValue[2]
+    print "Door Adc reading : ",reading
+
+    status = ""
+    # If voltage is high, nothing is in proximity / door closed else open
+    if(reading < 100):
+        print "Door OPENED"
+        status = "OPENED"
+    else:
+        print "Door CLOSED"
+        status = "CLOSED"
+    return status
+    
+
+
 def main():
 	currTemp = getTempReading(0)
         # round it to two decimals
         currTemp = float("{0:.2f}".format(currTemp))
 	# Send it to server
-	with SocketIO('192.168.0.104', 3000, LoggingNamespace) as socketIO:
+	with SocketIO('192.168.1.2', 5000, LoggingNamespace) as socketIO:
 		socketIO.emit('tempReading', currTemp)
+        door = getDoorStatus(1)
+        with SocketIO('192.168.1.2', 5000, LoggingNamespace) as socketIO:
+                            socketIO.emit('doorReading', door)
 
 if __name__ == '__main__':
 	while True:

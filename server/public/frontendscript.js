@@ -10,8 +10,7 @@ $(document).ready( function () {
 	// Set default temperature and humidity values
 	updateTemperature(0);
 	updateHumidity(90);
-	updateLampState("ON");
-	updateIntrusionState("NOT GOOD");
+	updateDoorState("CLOSED");
 	drawGraph(readings, labels);
 
 	// Establish connection via socket io
@@ -27,9 +26,9 @@ $(document).ready( function () {
 		updateHumidity(humValue);
 	});
 
-	socket.on('lampUpdate', function(data) {
-		var lampValue = data.value;
-		updateLampState(lampValue);
+	socket.on('doorUpdate', function(data) {
+		var doorStatus = data;
+		updateDoorState(doorStatus);
 	});
 
 	socket.on('intrusionUpdate', function(data) {
@@ -124,8 +123,10 @@ function updateHumidity(newValue) {
 	document.getElementById("humidityValue").innerHTML = newValue;
 }
 
-function updateLampState(state) {
-	document.getElementById("lampState").innerHTML = state;
+function updateDoorState(state) {
+	console.log("New door state : ");
+	console.log(state);
+	document.getElementById("doorState").innerHTML = state;
 }
 
 function updateIntrusionState(state) {
