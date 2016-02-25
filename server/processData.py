@@ -35,7 +35,6 @@ def processTemperature(data):
 	chart.x_labels = time
 	chart.add('temperature (C)', hourlyData)
 	chart.render_to_file('temperature.svg')
-	#chart.render_to_png('temperature.png')
 
 def processDoorstatus(data):
 	# To store the average temperature readings per hour
@@ -61,7 +60,6 @@ def processDoorstatus(data):
 	chart.x_labels = time
 	chart.add('Door openings (#)', doorstatusData)
 	chart.render_to_file('doorstatus.svg')
-	#chart.render_to_png('doorstatus.png')
 
 def processData(file_name):
 	tempData = []
