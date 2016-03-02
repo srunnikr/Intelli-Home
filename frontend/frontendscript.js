@@ -15,7 +15,7 @@ $(document).ready( function () {
 
 	// Establish connection via socket io
 	console.log("Trying to establish connection");
-	var socket = io.connect('http://192.168.1.2:5000');
+	var socket = io.connect('http://192.168.43.1212:5000');
 
 	socket.on('tempUpdate', function(data) {
 		updateTemperature(data);
@@ -29,6 +29,11 @@ $(document).ready( function () {
 	socket.on('doorUpdate', function(data) {
 		var doorStatus = data;
 		updateDoorState(doorStatus);
+	});
+
+	socket.on('PhotoUpdate', function(data) {
+		var photoStatus = data; 
+		updatePhotoState(photoStatus);
 	});
 
 	socket.on('intrusionUpdate', function(data) {
@@ -127,6 +132,12 @@ function updateDoorState(state) {
 	console.log("New door state : ");
 	console.log(state);
 	document.getElementById("doorState").innerHTML = state;
+}
+
+function updatePhotoState(state) {
+	console.log("New photo state : ");
+	console.log(state);
+	document.getElementById("photoState").innerHTML = state; 
 }
 
 function updateIntrusionState(state) {
