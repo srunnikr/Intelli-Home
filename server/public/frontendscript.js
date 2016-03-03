@@ -132,5 +132,5 @@ function updateDoorState(state) {
 function updatePhotoState(state) {
 	console.log("New photo state : ");
 	console.log(state);
-	document.getElementById("photoState").innerHTML = state;
+	document.getElementById("photoState").innerHTML = state.toString() + " lux";
 }
