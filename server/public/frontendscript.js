@@ -22,7 +22,7 @@ $(document).ready( function () {
 	});
 
 	socket.on('humUpdate', function(data) {
-		var humValue = data.value;
+		var humValue = data;
 		updateHumidity(humValue);
 	});
 
@@ -32,7 +32,7 @@ $(document).ready( function () {
 	});
 
 	socket.on('photoUpdate', function(data) {
-		var photoValue = data.value;
+		var photoValue = data;
 		updatePhotoState(photoValue);
 	});
 

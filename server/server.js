@@ -46,6 +46,16 @@ io.on('connection', function(client) {
     writeLogFile("temp", temperature);
   });
 
+  client.on('HumReading', function(data) {
+    humidity = data;
+    console.log(data);
+    console.log(humidity);
+    client.broadcast.emit('humUpdate', humidity);
+    console.log("humidity update sent to frontend");
+    writeLogFile("hum", humidity);
+  });
+
+
   client.on('doorReading', function(data) {
     doorStatus = data;
     console.log("Door status : ");
