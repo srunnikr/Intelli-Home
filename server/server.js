@@ -1,4 +1,4 @@
-  // app.js
+// app.js
 var express = require('express');  
 var app = express();  
 var server = require('http').createServer(app);  
@@ -55,6 +55,15 @@ io.on('connection', function(client) {
     writeLogFile("door", doorStatus);
   });
 
+  client.on('PhotoReading', function(data) {
+    photoStatus = data;
+    console.log("Photo status : ");
+    console.log(data);
+    client.broadcase.emit('photoUpdate', data);
+    console.log("photo update sent to frontend");
+    writeLogFile("photo", photoStatus);
+  });
+
 });
 
 function writeLogFile(type,data) {
@@ -72,14 +81,16 @@ function writeLogFile(type,data) {
     text += "::H:";
   } else if(type == "door") {
     text += "::D:";
+  } else if(type == "photo") {
+    text += "::P:";
   }
   text += data;
   text += "\n"
   console.log("Writing data to log file");
-  fs.appendFile(date+".txt", text, (err) => {
+  fs.appendFile(date+".txt", text, function(err) {
     if(err) throw err;
     console.log("Data appended to the file");
   });
 }
 
-server.listen(5000, '192.168.1.2');  
+server.listen(5000, '192.168.43.210');  

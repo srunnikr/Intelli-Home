@@ -51,9 +51,9 @@ def main():
 	# If this happens try again!
 	if humidity is not None and temperature is not None:
 		#send it to server
-				with SocketIO('192.168.1.2', 3000, LoggingNamespace) as socketIO:
-						socketIO.emit('HumidityReading', humidity)
-                with SocketIO('192.168.1.2', 3000, LoggingNamespace) as socketIO:
+		with SocketIO('192.168.43.76', 5000, LoggingNamespace) as socketIO:
+			socketIO.emit('HumReading', humidity)
+                with SocketIO('192.168.43.76', 5000, LoggingNamespace) as socketIO:
                         socketIO.emit('tempReading', temperature)
 
 	else:
