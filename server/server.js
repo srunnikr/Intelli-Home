@@ -81,6 +81,8 @@ function writeLogFile(type,data) {
     text += "::H:";
   } else if(type == "door") {
     text += "::D:";
+  } else if(type == "photo") {
+    text += "::P:";
   }
   text += data;
   text += "\n"
