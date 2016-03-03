@@ -59,7 +59,7 @@ io.on('connection', function(client) {
     photoStatus = data;
     console.log("Photo status : ");
     console.log(data);
-    client.broadcase.emit('photoUpdate', data);
+    client.broadcast.emit('photoUpdate', data);
     console.log("photo update sent to frontend");
     writeLogFile("photo", photoStatus);
   });
@@ -85,7 +85,7 @@ function writeLogFile(type,data) {
   text += data;
   text += "\n"
   console.log("Writing data to log file");
-  fs.appendFile(date+".txt", text, function(err) {
+  fs.appendFile(date+".txt", text, function (err) {
     if(err) throw err;
     console.log("Data appended to the file");
   });
