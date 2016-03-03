@@ -31,9 +31,9 @@ $(document).ready( function () {
 		updateDoorState(doorStatus);
 	});
 
-	socket.on('intrusionUpdate', function(data) {
-		var intrusionValue = data.value;
-		updateIntrusionState(intrusionValue);
+	socket.on('photoUpdate', function(data) {
+		var photoValue = data.value;
+		updatePhotoState(photoValue);
 	});
 
 });
@@ -129,6 +129,8 @@ function updateDoorState(state) {
 	document.getElementById("doorState").innerHTML = state;
 }
 
-function updateIntrusionState(state) {
-	document.getElementById("intrusionState").innerHTML = state;
+function updatePhotoState(state) {
+	console.log("New photo state : ");
+	console.log(state);
+	document.getElementById("photoState").innerHTML = state;
 }
