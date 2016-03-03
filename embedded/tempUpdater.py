@@ -48,9 +48,11 @@ def getPhotoRes(channel):
     reading = ((adcValue[1]&3) << 8) + adcValue[2]
     print "Photo-resistor reading : ",reading
 
+    lux_value = 16 * 255 / reading;
+
     status = ""
     # If voltage is high, nothing is in proximity / door closed else open
-    if(reading < 100):
+    if(lux_value < 8):
         print "DULL"
         status = "DULL"
     else:
@@ -63,13 +65,13 @@ def main():
         # round it to two decimals
         currTemp = float("{0:.2f}".format(currTemp))
 	# Send it to server
-	with SocketIO('192.168.43.121', 5000, LoggingNamespace) as socketIO:
+	with SocketIO('192.168.43.210', 5000, LoggingNamespace) as socketIO:
 		socketIO.emit('tempReading', currTemp)
         door = getDoorStatus(1)
-        with SocketIO('192.168.43.121', 5000, LoggingNamespace) as socketIO:
+        with SocketIO('192.168.43.210', 5000, LoggingNamespace) as socketIO:
                 socketIO.emit('doorReading', door)
 	photores = getPhotoRes(2)
-	with SocketIO('192.168.43.121', 5000, LoggingNamespace) as socketIO:
+	with SocketIO('192.168.43.210', 5000, LoggingNamespace) as socketIO:
 		socketIO.emit('PhotoReading', photores)
 
 if __name__ == '__main__':
