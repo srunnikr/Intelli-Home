@@ -32,7 +32,7 @@ $(document).ready( function () {
 	});
 
 	socket.on('photoUpdate', function(data) {
-		var photoValue = data.value;
+		var photoValue = data;
 		updatePhotoState(photoValue);
 	});
 

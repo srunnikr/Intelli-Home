@@ -85,6 +85,12 @@ def processPhoto(data):
 	print hourlyData
 	printMessage("Processed photo data")
 
+	# Generate graphs
+        chart = pygal.Bar()
+        chart.title = "Light"
+        chart.x_labels = time
+        chart.add('Light intensity (Lux)', hourlyData)
+        chart.render_to_file('lightintensity.svg')
 
 def processData(file_name):
 	tempData = []
