@@ -15,7 +15,7 @@ $(document).ready( function () {
 
 	// Establish connection via socket io
 	console.log("Trying to establish connection");
-	var socket = io.connect('http://192.168.43.1212:5000');
+	var socket = io.connect('http://192.168.43.121:5000');
 
 	socket.on('tempUpdate', function(data) {
 		updateTemperature(data);

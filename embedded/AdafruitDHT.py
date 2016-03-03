@@ -49,12 +49,14 @@ def main():
 	# the results will be null (because Linux can't
 	# guarantee the timing of calls to read the sensor).  
 	# If this happens try again!
-	if humidity is not None and temperature is not None:
+	if humidity is not None:
 		#send it to server
-		with SocketIO('192.168.43.76', 5000, LoggingNamespace) as socketIO:
+		with SocketIO('192.168.43.210', 5000, LoggingNamespace) as socketIO:
 			socketIO.emit('HumReading', humidity)
-                with SocketIO('192.168.43.76', 5000, LoggingNamespace) as socketIO:
-                        socketIO.emit('tempReading', temperature)
+			print 'HumReading : ', humidity
+                #with SocketIO('192.168.43.76', 5000, LoggingNamespace) as socketIO:
+                        #socketIO.emit('tempReading', temperature)
+			#print 'tempReading sent'
 
 	else:
 		print 'Failed to get reading. Try again!'
