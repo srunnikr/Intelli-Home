@@ -81,14 +81,16 @@ function writeLogFile(type,data) {
     text += "::H:";
   } else if(type == "door") {
     text += "::D:";
+  } else if(type == "photo") {
+    text += "::P:";
   }
   text += data;
   text += "\n"
   console.log("Writing data to log file");
-  fs.appendFile(date+".txt", text, (err) => {
+  fs.appendFile(date+".txt", text, function(err) {
     if(err) throw err;
     console.log("Data appended to the file");
   });
 }
 
-server.listen(5000, '192.168.43.121');  
+server.listen(5000, '192.168.43.210');  
