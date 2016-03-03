@@ -15,7 +15,7 @@ $(document).ready( function () {
 
 	// Establish connection via socket io
 	console.log("Trying to establish connection");
-	var socket = io.connect('http://192.168.1.2:5000');
+	var socket = io.connect('http://192.168.43.210:5000');
 
 	socket.on('tempUpdate', function(data) {
 		updateTemperature(data);
@@ -132,5 +132,5 @@ function updateDoorState(state) {
 function updatePhotoState(state) {
 	console.log("New photo state : ");
 	console.log(state);
-	document.getElementById("photoState").innerHTML = state;
+	document.getElementById("photoState").innerHTML = state.toString() + " lux";
 }
