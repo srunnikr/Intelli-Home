@@ -22,7 +22,7 @@ $(document).ready( function () {
 	});
 
 	socket.on('humUpdate', function(data) {
-		var humValue = data.value;
+		var humValue = data;
 		updateHumidity(humValue);
 	});
 
