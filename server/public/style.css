@@ -8,7 +8,7 @@ body {
 	padding-left: 30px;
 	width: 50%;
 	height: 150px;
-	font-family: 'Quicksand','Open Sans', sans-serif;
+	font-family: 'Quicksand', 'Open Sans', sans-serif;
 }
 
 .temperatureHumidity {
@@ -35,9 +35,9 @@ body {
 }
 
 .unitImage {
-	height:50px;
-	width:auto;
-	display:inline;
+	height: 50px;
+	width: auto;
+	display: inline;
 }
 
 .doorIntrusion {
@@ -63,19 +63,19 @@ body {
 
 .aboutDescription {
 	margin-top: 50px;
-	font-family: 'Roboto','Quicksand','Open Sans', sans-serif;
+	font-family: 'Roboto', 'Quicksand', 'Open Sans', sans-serif;
 	font-size: 20px;
 }
 
 .names {
 	margin-top: 50px;
-	font-family: 'Roboto','Quicksand','Open Sans', sans-serif;
+	font-family: 'Roboto', 'Quicksand', 'Open Sans', sans-serif;
 	font-size: 20px;
 }
 
 /* HELP PAGE */
 .helpInitialtext {
 	margin-top: 50px;
-	font-family: 'Roboto','Quicksand','Open Sans', sans-serif;
+	font-family: 'Roboto', 'Quicksand', 'Open Sans', sans-serif;
 	font-size: 20px;
 }

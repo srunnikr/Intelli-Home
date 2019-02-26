@@ -3,7 +3,7 @@ var labels = []
 
 var canvas = document.getElementById('myChart').getContext('2d');
 
-$(document).ready( function () {
+$(document).ready(function () {
 	// Set the status message to test javascript functionality
 	console.log("javascript on");
 
@@ -17,26 +17,26 @@ $(document).ready( function () {
 	console.log("Trying to establish connection");
 	var socket = io.connect('http://192.168.43.121:5000');
 
-	socket.on('tempUpdate', function(data) {
+	socket.on('tempUpdate', function (data) {
 		updateTemperature(data);
 	});
 
-	socket.on('humUpdate', function(data) {
+	socket.on('humUpdate', function (data) {
 		var humValue = data.value;
 		updateHumidity(humValue);
 	});
 
-	socket.on('doorUpdate', function(data) {
+	socket.on('doorUpdate', function (data) {
 		var doorStatus = data;
 		updateDoorState(doorStatus);
 	});
 
-	socket.on('PhotoUpdate', function(data) {
-		var photoStatus = data; 
+	socket.on('PhotoUpdate', function (data) {
+		var photoStatus = data;
 		updatePhotoState(photoStatus);
 	});
 
-	socket.on('intrusionUpdate', function(data) {
+	socket.on('intrusionUpdate', function (data) {
 		var intrusionValue = data.value;
 		updateIntrusionState(intrusionValue);
 	});
@@ -45,28 +45,26 @@ $(document).ready( function () {
 
 function drawGraph(data, labels) {
 	var chartData = {
-		labels : labels,
-		datasets : [
-			{
-				fillColor : "rgba(172,194,132,0.4)",
-				strokeColor : "#ACC26D",
-				pointColor : "#fff",
-				pointStrokeColor : "#9DB86D",
-				data : data
-			}
-		]
+		labels: labels,
+		datasets: [{
+			fillColor: "rgba(172,194,132,0.4)",
+			strokeColor: "#ACC26D",
+			pointColor: "#fff",
+			pointStrokeColor: "#9DB86D",
+			data: data
+		}]
 	}
 	Chart.defaults.global.responsive = true;
 	Chart.defaults.global.animation = false;
 	Chart.defaults.global.scaleOverride = true;
 
-    // ** Required if scaleOverride is true **
-    // Number - The number of steps in a hard coded scale
-    Chart.defaults.global.scaleSteps = 15;
-    // Number - The value jump in the hard coded scale
-    Chart.defaults.global.scaleStepWidth = 2;
-    // Number - The scale starting value
-    Chart.defaults.global.scaleStartValue = 0;
+	// ** Required if scaleOverride is true **
+	// Number - The number of steps in a hard coded scale
+	Chart.defaults.global.scaleSteps = 15;
+	// Number - The value jump in the hard coded scale
+	Chart.defaults.global.scaleStepWidth = 2;
+	// Number - The scale starting value
+	Chart.defaults.global.scaleStartValue = 0;
 
 	chart = new Chart(canvas).Line(chartData);
 }
@@ -82,9 +80,9 @@ function updateTemperature(newValue) {
 	var current_hour = d.getHours();
 	var current_min = d.getMinutes();
 	var current_sec = d.getSeconds();
-	
+
 	// CHeck if we have 100 elements in the array, if so remove the last one
-	if(readings.length >= 20) {
+	if (readings.length >= 20) {
 		// Remove the last element
 		readings.shift();
 		readings.push(newValue);
@@ -96,29 +94,29 @@ function updateTemperature(newValue) {
 	// Prepare the label to display
 	var label = "";
 	label += current_hour.toString();
-	if(current_hour < 12) {
-		label+=":";
-		label+=current_min.toString();
-		label+=":";
-		label+=current_sec.toString();
-		label+="AM";
+	if (current_hour < 12) {
+		label += ":";
+		label += current_min.toString();
+		label += ":";
+		label += current_sec.toString();
+		label += "AM";
 	} else {
-		label+=":";
-		label+=current_min.toString();
-		label+=":";
-		label+=current_sec.toString();
+		label += ":";
+		label += current_min.toString();
+		label += ":";
+		label += current_sec.toString();
 		label += "PM";
 	}
 
 	// Similar to readings check if we have 100 elements at present
-	if(labels.length >= 20) {
+	if (labels.length >= 20) {
 		// Remove the last element (Here the first item in the array)
 		labels.shift();
 		labels.push(label);
 	} else {
 		labels.push(label);
 	}
-	
+
 	// Update the graph
 	drawGraph(readings, labels);
 
@@ -137,7 +135,7 @@ function updateDoorState(state) {
 function updatePhotoState(state) {
 	console.log("New photo state : ");
 	console.log(state);
-	document.getElementById("photoState").innerHTML = state; 
+	document.getElementById("photoState").innerHTML = state;
 }
 
 function updateIntrusionState(state) {
